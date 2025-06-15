@@ -1,162 +1,185 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lords of Lake Windsor CC</title>
-  <link rel="stylesheet" href="./style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lords of Lake Windsor CC</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkxvcmRzIG9mIExha2UgV2luZHNvciBDQyIsCiAgInNob3J0X25hbWUiOiAiTG9yZHMgR29sZiIsCiAgImRlc2NyaXB0aW9uIjogIlRlcnJpdG9yaWFsIEdvbGYgQ29ucXVlc3QgR2FtZSIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMmM1NTMwIiwKICAidGhlbWVfY29sb3IiOiAiIzJjNTUzMCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1USTRJaUJvWldsbmFIUTlJakV5T0NJZ2RtbGxkMEp2ZUQwaU1DQXdJREV5T0NBeU9DSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklqNEtJQ0E4WTJseVkyeGxJR042UFNJMk5DSWdjakU5SWpVMElpQm1hV3hzUFNJak5ESXdOVEF3SWo0OEwyTnBjbU5zWlQ0S0lDQThjRzlzZVdkdmJpQndiMmx1ZEhNOUlqSXpMQ0kxTmlBek1pdzFNQ0EwTXl3MU9TQTBNaXcxTmlBME1pd3lOaUF6TWl3eU5pQXlNeXd5Tmprc0kyWm1abVptSWo0OEwzQnZiSGxuYjI0K0NpQWdQSEJoZEdnZ1pEMGlUVEF3TERJeUxqVWdXakkxTERJeUxqVWdXakkxTERJM0xqVWdTREF3V2lJZ1ptbHNiRDBpSTJabVptWm1JajQ4TDNCaGRHZytDand2YzNabUNRPT0iLAogICAgICAic2l6ZXMiOiAiMTI4eDEyOCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    <meta name="theme-color" content="#2c5530">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Lords Golf">
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="container">
-    <div class="header">
-        <h1>⛳ Lords of Lake Windsor CC ⛳</h1>
-        <p>Territorial Golf Conquest Game</p>
-        <div class="sync-status" id="syncStatus">🔄 Syncing...</div>
-    </div>
+    <div class="container">
+        <div class="header">
+            <h1>⛳ Lords of Lake Windsor CC ⛳</h1>
+            <p>Territorial Golf Conquest Game</p>
+            <div class="sync-status" id="syncStatus">🔄 Syncing...</div>
+        </div>
 
-    <!-- Navigation Buttons -->
-    <div class="nav-controls">
-        <button class="btn btn-nav active" id="mapBtn" onclick="showView('map')">Map</button>
-        <button class="btn btn-nav" id="warRoomBtn" onclick="showView('warRoom')">War Room</button>
-        <button class="btn btn-nav" id="statsBtn" onclick="showView('stats')">Stats</button>
-    </div>
+        <!-- Row 1: Navigation Buttons -->
+        <div class="nav-controls">
+            <button class="btn btn-rules active" id="rulesBtn" onclick="showView('rules')">Rules</button>
+            <button class="btn btn-nav" id="mapBtn" onclick="showView('map')">Map</button>
+            <button class="btn btn-nav" id="warRoomBtn" onclick="showView('warRoom')">War Room</button>
+            <button class="btn btn-nav" id="statsBtn" onclick="showView('stats')">Stats</button>
+        </div>
 
-    <!-- Stats Sub-buttons -->
-    <div class="stats-controls" id="statsControls" style="display: none;">
-        <button class="btn btn-sub active" id="territoriesBtn" onclick="showStats('territories')">Territories</button>
-        <button class="btn btn-sub" id="birdiesBtn" onclick="showStats('birdies')">Birdies</button>
-        <button class="btn btn-sub" id="capturesBtn" onclick="showStats('captures')">Captures</button>
-    </div>
+        <!-- Stats Sub-buttons -->
+        <div class="stats-controls" id="statsControls" style="display: none;">
+            <button class="btn btn-sub active" id="territoriesBtn" onclick="showStats('territories')">Territories</button>
+            <button class="btn btn-sub" id="birdiesBtn" onclick="showStats('birdies')">Birdies</button>
+            <button class="btn btn-sub" id="capturesBtn" onclick="showStats('captures')">Captures</button>
+        </div>
 
-    <!-- Main Action Buttons -->
-    <div class="controls">
-        <button class="btn btn-primary" onclick="showAddPlayerModal()">Add Player</button>
-        <button class="btn btn-primary" onclick="showLogRoundModal()">Log Round</button>
-        <button class="btn btn-secondary" onclick="downloadStats()">Download Stats</button>
-        <button class="btn btn-secondary" onclick="showGameSettings()">Game Settings</button>
-        <button class="btn btn-danger" onclick="adminResetGame()">Reset Game</button>
-    </div>
+        <!-- Row 2: Management Buttons -->
+        <div class="management-controls">
+            <button class="btn btn-secondary btn-small" onclick="downloadStats()">Download Stats</button>
+            <button class="btn btn-secondary btn-small" onclick="showGameSettings()">Game Settings</button>
+            <button class="btn btn-primary btn-small" onclick="showAddPlayerModal()">Add Player</button>
+            <button class="btn btn-danger btn-small" onclick="adminResetGame()">Reset Game</button>
+        </div>
 
-    <!-- Map View -->
-    <div class="view-container" id="mapView">
+        <!-- Row 3: Primary Action Button -->
+        <div class="action-controls">
+            <button class="btn btn-primary btn-large" onclick="showLogRoundModal()">📋 Log Round</button>
+        </div>
+
+        <!-- Rules View -->
+        <div class="view-container" id="rulesView">
+            <div class="panel">
+                <h3>🏌️‍♂️ Game Rules - Lords of Lake Windsor CC</h3>
+                <div class="rules-content">
+                    <ol class="rules-list">
+                        <li>The game will take place only at Lake Windsor CC.</li>
+                        <li>The game runs on the honor system.</li>
+                        <li>Submit your updates after you finish a round. (The web app and phone app sync with one another.)</li>
+                        <li>You can only submit birdies from <strong>official rounds: front 9 holes (1-9), back 9 holes (10-18), or full 18 holes</strong>.</li>
+                        <li>Each player has been assigned 4 holes via <strong>random number generation (RNG) to ensure fairness</strong>. There are two holes left currently unoccupied. (More players can be added to the game in any unoccupied territories or whenever the game is completely reset.)</li>
+                        <li>Every time you play the course, you have a chance to expand your territory by making a birdie on a hole <strong>adjacent to one you already occupy (holes next to each other on the course map)</strong>. Similarly, you can have your territory (hole) stolen if the players adjacent to you get a birdie on a hole you occupy.</li>
+                        <li>If you lose a hole, you can get it back by making a birdie there.</li>
+                        <li>The game begins immediately and runs through the 2025 calendar year.</li>
+                    </ol>
+                    <div class="rules-footer">
+                        <p><strong>Ready to conquer Lake Windsor? Select "Map" to view your territories!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map View -->
+        <div class="view-container" id="mapView" style="display: none;">
+            <div class="panel">
+                <h3 style="text-align: center; margin-bottom: 20px;">Lake Windsor Country Club - Course Overview</h3>
+                <div class="course-list" id="courseList">
+                    <!-- Course list will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- War Room View -->
+        <div class="view-container" id="warRoomView" style="display: none;">
+            <div class="panel">
+                <h3 style="text-align: center; margin-bottom: 20px;">War Room - Territory Analysis</h3>
+                <div class="war-room-table" id="warRoomTable">
+                    <!-- War room table will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats View -->
+        <div class="view-container" id="statsView" style="display: none;">
+            <div class="panel">
+                <h3 id="statsTitle">Player Rankings - Territories</h3>
+                <div class="stats-content" id="statsContent">
+                    <!-- Stats content will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Player Info Panels -->
+        <div class="info-panels">
+            <div class="panel">
+                <h3>Players & Current Holdings</h3>
+                <ul class="player-list" id="playerList">
+                    <!-- Players will be populated by JavaScript -->
+                </ul>
+            </div>
+
+            <div class="panel">
+                <h3>Leaderboard</h3>
+                <div id="leaderboard">
+                    <!-- Leaderboard will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Game Statistics</h3>
+                <div class="stats-grid" id="gameStats">
+                    <!-- Stats will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
         <div class="panel">
-            <h3 style="text-align: center; margin-bottom: 20px;">Lake Windsor Country Club - Course Overview</h3>
-            <div class="course-list" id="courseList">
-                <!-- Course list will be generated by JavaScript -->
+            <h3>Recent Activity</h3>
+            <div class="activity-log" id="activityLog">
+                <!-- Activity will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
-    <!-- War Room View -->
-    <div class="view-container" id="warRoomView" style="display: none;">
-        <div class="panel">
-            <h3 style="text-align: center; margin-bottom: 20px;">War Room - Territory Analysis</h3>
-            <div class="war-room-table" id="warRoomTable">
-                <!-- War room table will be generated by JavaScript -->
+    <!-- Add Player Modal -->
+    <div id="addPlayerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addPlayerModal')">&times;</span>
+            <h3>Add New Player</h3>
+            <div class="form-group">
+                <label for="playerName">Player Name:</label>
+                <input type="text" id="playerName" placeholder="Enter player name">
             </div>
+            <button class="btn btn-primary" onclick="addPlayer()">Add Player</button>
         </div>
     </div>
 
-    <!-- Stats View -->
-    <div class="view-container" id="statsView" style="display: none;">
-        <div class="panel">
-            <h3 id="statsTitle">Player Rankings - Territories</h3>
-            <div class="stats-content" id="statsContent">
-                <!-- Stats content will be generated by JavaScript -->
+    <!-- Log Round Modal -->
+    <div id="logRoundModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('logRoundModal')">&times;</span>
+            <h3>📋 Log Round</h3>
+            <div class="form-group">
+                <label for="roundPlayer">Player:</label>
+                <select id="roundPlayer">
+                    <!-- Players will be populated by JavaScript -->
+                </select>
             </div>
-        </div>
-    </div>
-
-    <!-- Player Info Panels -->
-    <div class="info-panels">
-        <div class="panel">
-            <h3>Players & Current Holdings</h3>
-            <ul class="player-list" id="playerList">
-                <!-- Players will be populated by JavaScript -->
-            </ul>
-        </div>
-
-        <div class="panel">
-            <h3>Leaderboard</h3>
-            <div id="leaderboard">
-                <!-- Leaderboard will be populated by JavaScript -->
+            <div class="form-group">
+                <label>Holes where you made birdie:</label>
+                <div class="round-entry" id="birdieHoles">
+                    <!-- Hole checkboxes will be generated by JavaScript -->
+                </div>
             </div>
+            <button class="btn btn-primary btn-large" onclick="logRound()">Submit Round</button>
         </div>
+    </div>
 
-        <div class="panel">
-            <h3>Game Statistics</h3>
-            <div class="stats-grid" id="gameStats">
-                <!-- Stats will be populated by JavaScript -->
+    <!-- Game Settings Modal -->
+    <div id="gameSettingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('gameSettingsModal')">&times;</span>
+            <h3>Game Settings</h3>
+            <div class="form-group">
+                <label>Edit Player Names:</label>
+                <div id="playerNameEditor">
+                    <!-- Player name editors will be populated by JavaScript -->
+                </div>
             </div>
+            <button class="btn btn-primary" onclick="savePlayerNames()">Save Changes</button>
         </div>
     </div>
 
-    <div class="panel">
-        <h3>Recent Activity</h3>
-        <div class="activity-log" id="activityLog">
-            <!-- Activity will be populated by JavaScript -->
-        </div>
-    </div>
-</div>
-
-<!-- Add Player Modal -->
-<div id="addPlayerModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('addPlayerModal')">&times;</span>
-        <h3>Add New Player</h3>
-        <div class="form-group">
-            <label for="playerName">Player Name:</label>
-            <input type="text" id="playerName" placeholder="Enter player name">
-        </div>
-        <button class="btn btn-primary" onclick="addPlayer()">Add Player</button>
-    </div>
-</div>
-
-<!-- Log Round Modal -->
-<div id="logRoundModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('logRoundModal')">&times;</span>
-        <h3>Log Round</h3>
-        <div class="form-group">
-            <label for="roundPlayer">Player:</label>
-            <select id="roundPlayer">
-                <!-- Players will be populated by JavaScript -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Holes where you made birdie:</label>
-            <div class="round-entry" id="birdieHoles">
-                <!-- Hole checkboxes will be generated by JavaScript -->
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="logRound()">Log Round</button>
-    </div>
-</div>
-
-<!-- Game Settings Modal -->
-<div id="gameSettingsModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('gameSettingsModal')">&times;</span>
-        <h3>Game Settings</h3>
-        <div class="form-group">
-            <label>Edit Player Names:</label>
-            <div id="playerNameEditor">
-                <!-- Player name editors will be populated by JavaScript -->
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="savePlayerNames()">Save Changes</button>
-    </div>
-</div>
-
-<!-- PWA Manifest -->
-<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkxvcmRzIG9mIExha2UgV2luZHNvciBDQyIsCiAgInNob3J0X25hbWUiOiAiTG9yZHMgR29sZiIsCiAgImRlc2NyaXB0aW9uIjogIlRlcnJpdG9yaWFsIEdvbGYgQ29ucXVlc3QgR2FtZSIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMmM1NTMwIiwKICAidGhlbWVfY29sb3IiOiAiIzJjNTUzMCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1USTRJaUJvWldsbmFIUTlJakV5T0NJZ2RtbGxkMEp2ZUQwaU1DQXdJREV5T0NBeU9DSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklqNEtJQ0E4WTJseVkyeGxJR042UFNJMk5DSWdjakU5SWpVMElpQm1hV3hzUFNJak5ESXdOVEF3SWo0OEwyTnBjbU5zWlQ0S0lDQThjRzlzZVdkdmJpQndiMmx1ZEhNOUlqSXpMQ0kxTmlBek1pdzFNQ0EwTXl3MU9TQTBNaXcxTmlBME1pd3lOaUF6TWl3eU5pQXlNeXd5Tmprc0kyWm1abVptSWo0OEwzQnZiSGxuYjI0K0NpQWdQSEJoZEdnZ1pEMGlUVEF3TERJeUxqVWdXakkxTERJeUxqVWdXakkxTERJM0xqVWdTREF3V2lJZ1ptbHNiRDBpSTJabVptWm1JajQ4TDNCaGRHZytDand2YzNabkNRPT0iLAogICAgICAic2l6ZXMiOiAiMTI4eDEyOCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
-<meta name="theme-color" content="#2c5530">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Lords Golf">
-<!-- partial -->
-  <script type="module" src="./script.js"></script>
-
+    <script type="module" src="./script.js"></script>
 </body>
 </html>
