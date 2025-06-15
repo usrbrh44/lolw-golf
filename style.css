@@ -223,36 +223,17 @@ body {
 }
 
 .rules-list {
-    counter-reset: rule-counter;
     list-style: none;
     padding-left: 0;
 }
 
 .rules-list li {
-    counter-increment: rule-counter;
     margin-bottom: 20px;
     padding: 15px;
     background: rgba(44, 85, 48, 0.05);
     border-radius: 8px;
     border-left: 4px solid #2c5530;
     position: relative;
-}
-
-.rules-list li::before {
-    content: counter(rule-counter);
-    position: absolute;
-    left: -2px;
-    top: -2px;
-    background: #2c5530;
-    color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
 }
 
 .rules-footer {
