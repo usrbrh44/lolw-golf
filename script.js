@@ -26,8 +26,8 @@ let gameState = {
     stats: {}
 };
 
-// Current view state
-let currentView = 'map';
+// Current view state - Start with Rules view
+let currentView = 'rules';
 let currentStatsView = 'territories';
 
 // Sync state
@@ -254,14 +254,21 @@ function randomlyAssignHoles() {
 function showView(viewName) {
     currentView = viewName;
     
+    // Hide all views
+    document.getElementById('rulesView').style.display = 'none';
     document.getElementById('mapView').style.display = 'none';
     document.getElementById('warRoomView').style.display = 'none';
     document.getElementById('statsView').style.display = 'none';
     document.getElementById('statsControls').style.display = 'none';
     
-    document.querySelectorAll('.btn-nav').forEach(btn => btn.classList.remove('active'));
+    // Remove active class from all nav buttons
+    document.querySelectorAll('.btn-rules, .btn-nav').forEach(btn => btn.classList.remove('active'));
     
-    if (viewName === 'map') {
+    // Show selected view and activate button
+    if (viewName === 'rules') {
+        document.getElementById('rulesView').style.display = 'block';
+        document.getElementById('rulesBtn').classList.add('active');
+    } else if (viewName === 'map') {
         document.getElementById('mapView').style.display = 'block';
         document.getElementById('mapBtn').classList.add('active');
         updateMapView();
@@ -438,6 +445,7 @@ function updateUI() {
     updateActivityLog();
     updateModalPlayers();
     
+    // Only update specific views if they're active
     if (currentView === 'map') {
         updateMapView();
     } else if (currentView === 'warRoom') {
@@ -445,6 +453,7 @@ function updateUI() {
     } else if (currentView === 'stats') {
         showStats(currentStatsView);
     }
+    // Rules view doesn't need updating as it's static content
 }
 
 function getHoleOwner(holeNum) {
@@ -745,7 +754,7 @@ async function adminResetGame() {
         stats: {}
     };
     
-    currentView = 'map';
+    currentView = 'rules';
     currentStatsView = 'territories';
     
     const playerCount = prompt('How many players for the new game? (4 recommended)', '4');
@@ -771,14 +780,14 @@ async function adminResetGame() {
         randomlyAssignHoles();
     }
     
-    showView('map');
+    showView('rules');
     
     // Resume sync and save the complete setup to Firebase
     pauseSync = false;
     await syncToFirebase();
     updateUI();
     
-    alert('Game has been reset! New territories have been assigned.');
+    alert('Game has been reset! New territories have been assigned. Check the Rules for game information.');
 }
 
 function downloadStats() {

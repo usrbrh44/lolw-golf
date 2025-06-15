@@ -9,17 +9,19 @@ body {
     background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
     color: #333;
     min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: 10px;
@@ -29,8 +31,9 @@ body {
 
 .header h1 {
     color: #2c5530;
-    font-size: 2.5em;
+    font-size: 2.2em;
     margin-bottom: 10px;
+    line-height: 1.2;
 }
 
 .header p {
@@ -42,8 +45,8 @@ body {
     position: absolute;
     top: 10px;
     right: 15px;
-    font-size: 0.9em;
-    padding: 5px 10px;
+    font-size: 0.85em;
+    padding: 6px 12px;
     border-radius: 15px;
     background: rgba(44, 85, 48, 0.1);
     color: #2c5530;
@@ -60,56 +63,105 @@ body {
     color: #dc3545;
 }
 
+/* ROW 1: Navigation Controls - Standard Size */
 .nav-controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+/* ROW 2: Management Controls - Smaller Size */
+.management-controls {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+/* ROW 3: Action Controls - Large Size */
+.action-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
 }
 
 .stats-controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 20px;
 }
 
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
+/* Button Base Styles */
 .btn {
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
     font-weight: bold;
     transition: all 0.3s ease;
+    text-align: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+/* Button Sizes */
+.btn {
+    padding: 12px 18px;
+    font-size: 14px;
+    min-height: 44px; /* iOS minimum touch target */
+    min-width: 80px;
+}
+
+.btn-small {
+    padding: 10px 14px;
+    font-size: 12px;
+    min-height: 40px;
+    min-width: 70px;
+}
+
+.btn-large {
+    padding: 16px 24px;
+    font-size: 16px;
+    min-height: 50px;
+    min-width: 200px;
+    font-weight: 900;
+}
+
+/* Button Colors */
+.btn-rules {
+    background: #2196F3;
+    color: white;
+    min-width: 85px;
+}
+
+.btn-rules:hover, .btn-rules.active {
+    background: #1976D2;
+    transform: translateY(-1px);
 }
 
 .btn-nav {
     background: #4a7c59;
     color: white;
-    min-width: 120px;
+    min-width: 85px;
 }
 
 .btn-nav:hover {
     background: #3a6049;
+    transform: translateY(-1px);
 }
 
 .btn-nav.active {
     background: #2c5530;
+    transform: translateY(-1px);
 }
 
 .btn-sub {
     background: #6c757d;
     color: white;
-    min-width: 100px;
+    min-width: 90px;
 }
 
 .btn-sub:hover {
@@ -127,6 +179,7 @@ body {
 
 .btn-primary:hover {
     background: #1e3a21;
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -136,6 +189,7 @@ body {
 
 .btn-secondary:hover {
     background: #545b62;
+    transform: translateY(-1px);
 }
 
 .btn-danger {
@@ -145,18 +199,75 @@ body {
 
 .btn-danger:hover {
     background: #c82333;
+    transform: translateY(-1px);
 }
 
 .btn-revert {
     background: #17a2b8;
     color: white;
-    padding: 2px 8px;
-    font-size: 12px;
+    padding: 4px 10px;
+    font-size: 11px;
     margin-left: 10px;
+    min-height: 32px;
 }
 
 .btn-revert:hover {
     background: #138496;
+}
+
+/* Rules Content */
+.rules-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.rules-list {
+    counter-reset: rule-counter;
+    list-style: none;
+    padding-left: 0;
+}
+
+.rules-list li {
+    counter-increment: rule-counter;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(44, 85, 48, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid #2c5530;
+    position: relative;
+}
+
+.rules-list li::before {
+    content: counter(rule-counter);
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    background: #2c5530;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.rules-footer {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(44, 85, 48, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid #2c5530;
+}
+
+.rules-footer p {
+    font-size: 18px;
+    color: #2c5530;
+    margin: 0;
 }
 
 .view-container {
@@ -189,13 +300,14 @@ body {
 .course-list-header {
     background: #2c5530;
     color: white;
-    padding: 10px;
+    padding: 12px;
     font-weight: bold;
     text-align: center;
+    font-size: 16px;
 }
 
 .course-list-item {
-    padding: 8px 12px;
+    padding: 10px 12px;
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
@@ -207,18 +319,20 @@ body {
 
 .hole-number {
     background: #f8f9fa;
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-weight: bold;
     text-align: center;
     min-width: 60px;
+    font-size: 16px;
 }
 
 .owner-box {
     color: white;
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-weight: bold;
     text-align: center;
     flex: 1;
+    font-size: 16px;
 }
 
 .owner-box.unoccupied {
@@ -228,17 +342,19 @@ body {
 
 .war-room-table {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .war-table {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid #ddd;
+    font-size: 14px;
 }
 
 .war-table th,
 .war-table td {
-    padding: 10px;
+    padding: 12px 8px;
     border: 1px solid #ddd;
     text-align: center;
 }
@@ -247,6 +363,7 @@ body {
     background: #2c5530;
     color: white;
     font-weight: bold;
+    font-size: 13px;
 }
 
 .war-table tr:nth-child(even) {
@@ -265,22 +382,24 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    margin-bottom: 5px;
+    padding: 12px;
+    margin-bottom: 8px;
     border-radius: 5px;
     border-left: 4px solid;
     background: #f8f9fa;
+    font-size: 15px;
 }
 
 .player-birdies {
     margin-bottom: 15px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 5px;
     border-left: 4px solid;
+    font-size: 15px;
 }
 
 .birdie-holes {
-    font-size: 0.9em;
+    font-size: 14px;
     color: #666;
     margin-top: 5px;
 }
@@ -300,10 +419,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    margin-bottom: 5px;
+    padding: 12px;
+    margin-bottom: 8px;
     border-radius: 5px;
     border-left: 4px solid;
+    font-size: 15px;
 }
 
 .modal {
@@ -320,38 +440,47 @@ body {
 .modal-content {
     background-color: white;
     margin: 5% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
+    padding: 25px;
+    border-radius: 12px;
+    width: 92%;
     max-width: 500px;
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: auto;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .form-group input, .form-group select {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    min-height: 44px;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #2c5530;
+    outline: none;
 }
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
+    line-height: 1;
+    padding: 4px;
 }
 
 .close:hover {
@@ -361,71 +490,89 @@ body {
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    gap: 12px;
 }
 
 .stat-item {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     background: #f8f9fa;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .stat-value {
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
     color: #2c5530;
 }
 
 .stat-label {
-    font-size: 0.9em;
+    font-size: 1em;
     color: #666;
+    margin-top: 5px;
 }
 
 .round-entry {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    gap: 5px;
-    margin-top: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+    gap: 8px;
+    margin-top: 15px;
 }
 
 .hole-checkbox {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
     background: #f8f9fa;
+    min-height: 60px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hole-checkbox:hover {
+    background: #e9ecef;
+    border-color: #2c5530;
 }
 
 .hole-checkbox input {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    transform: scale(1.3);
+}
+
+.hole-checkbox label {
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .activity-log {
-    max-height: 200px;
+    max-height: 250px;
     overflow-y: auto;
     background: #f8f9fa;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 8px;
     margin-top: 10px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .activity-item {
-    padding: 5px 0;
+    padding: 8px 0;
     border-bottom: 1px solid #dee2e6;
-    font-size: 0.9em;
+    font-size: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    line-height: 1.4;
 }
 
 .activity-item:last-child {
     border-bottom: none;
 }
 
-/* PWA Styles */
+/* PWA and Mobile Optimizations */
 @media (display-mode: standalone) {
     body {
         padding-top: env(safe-area-inset-top);
@@ -433,22 +580,14 @@ body {
     }
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .nav-controls, .stats-controls {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn-nav, .btn-sub {
-        min-width: 200px;
+    .container {
+        padding: 10px;
     }
     
     .header h1 {
-        font-size: 2em;
-    }
-    
-    .war-room-table {
-        font-size: 12px;
+        font-size: 1.8em;
     }
     
     .sync-status {
@@ -457,5 +596,93 @@ body {
         right: auto;
         margin-top: 10px;
         display: inline-block;
+        font-size: 0.8em;
+    }
+    
+    .nav-controls {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .management-controls {
+        gap: 4px;
+    }
+    
+    .btn {
+        min-width: 70px;
+        font-size: 13px;
+    }
+    
+    .btn-small {
+        min-width: 65px;
+        font-size: 11px;
+        padding: 8px 10px;
+    }
+    
+    .btn-large {
+        min-width: 180px;
+        font-size: 15px;
+    }
+    
+    .war-table {
+        font-size: 11px;
+    }
+    
+    .war-table th,
+    .war-table td {
+        padding: 8px 4px;
+    }
+    
+    .rules-list li {
+        padding: 12px;
+        font-size: 15px;
+    }
+    
+    .rules-footer p {
+        font-size: 16px;
+    }
+    
+    .round-entry {
+        grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+        gap: 6px;
+    }
+    
+    .hole-checkbox {
+        min-height: 55px;
+        padding: 6px;
+    }
+    
+    .hole-checkbox label {
+        font-size: 13px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.6em;
+    }
+    
+    .btn {
+        min-width: 60px;
+        font-size: 12px;
+    }
+    
+    .btn-small {
+        min-width: 55px;
+        font-size: 10px;
+    }
+    
+    .btn-large {
+        min-width: 160px;
+        font-size: 14px;
+    }
+    
+    .nav-controls {
+        gap: 4px;
+    }
+    
+    .management-controls {
+        gap: 3px;
     }
 }
