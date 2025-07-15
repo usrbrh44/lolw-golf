@@ -924,9 +924,6 @@ window.fixBirdieError = function() {
     
     // Remove hole 18 from Boe's territories
     boe.holes = boe.holes.filter(hole => hole !== 18);
-    
-    // Add hole 18 to Linc's territories (if not already there)
-    if (!linc.holes.includes(18)) {
         linc.holes.push(18);
     }
     
