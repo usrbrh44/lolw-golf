@@ -902,6 +902,7 @@ window.closeModal = closeModal;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', initializeGame);
+
 // Temporary fix function for Linc/Boe birdie mix-up
 window.fixBirdieError = function() {
     // Find player IDs
