@@ -902,3 +902,46 @@ window.closeModal = closeModal;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', initializeGame);
+// Temporary fix function for Linc/Boe birdie mix-up
+window.fixBirdieError = function() {
+    // Find player IDs
+    const linc = gameState.players.find(p => p.name.toLowerCase().includes('linc'));
+    const boe = gameState.players.find(p => p.name.toLowerCase().includes('boe'));
+    
+    if (!linc || !boe) {
+        alert('Could not find Linc or Boe in player list');
+        return;
+    }
+    
+    // Remove hole 18 birdie from Boe
+    gameState.playerBirdies[boe.id] = gameState.playerBirdies[boe.id].filter(hole => hole !== 18);
+    
+    // Add hole 18 birdie to Linc (if not already there)
+    if (!gameState.playerBirdies[linc.id].includes(18)) {
+        gameState.playerBirdies[linc.id].push(18);
+    }
+    
+    // Remove hole 18 from Boe's territories
+    boe.holes = boe.holes.filter(hole => hole !== 18);
+    
+    // Add hole 18 to Linc's territories (if not already there)
+    if (!linc.holes.includes(18)) {
+        linc.holes.push(18);
+    }
+    
+    // Fix hole ownership
+    gameState.holes[18] = linc.id;
+    
+    // Update conquest stats
+    if (boe.conquests > 0) boe.conquests--;
+    linc.conquests++;
+    
+    // Log the fix
+    logActivity(`ADMIN FIX: Corrected hole 18 - transferred from ${boe.name} back to ${linc.name}`);
+    
+    // Save and update
+    syncToFirebase();
+    updateUI();
+    
+    alert('Fixed! Hole 18 transferred back to Linc.');
+};
