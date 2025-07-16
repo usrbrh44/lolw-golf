@@ -571,9 +571,10 @@ function revertAction(actionIndex) {
 function updateModalPlayers() {
     const select = document.getElementById('roundPlayer');
     if (select) {
-        select.innerHTML = gameState.players.map(player => 
-            `<option value="${player.id}">${player.name}</option>`
-        ).join('');
+        select.innerHTML = '<option value="" disabled selected>Select Player</option>' + 
+         gameState.players.map(player => 
+             `<option value="${player.id}">${player.name}</option>`
+         ).join('');
     }
 
     const birdieHoles = document.getElementById('birdieHoles');
