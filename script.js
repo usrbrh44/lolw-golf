@@ -985,3 +985,6 @@ async function fixHole18Ownership() {
         alert('Error fixing hole 18. Check console for details.');
     }
 }
+// Make function available globally
+window.fixHole18Ownership = fixHole18Ownership;
+
