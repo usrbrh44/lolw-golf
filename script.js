@@ -40,9 +40,7 @@ function initializeFirebaseApp() {
 }
 
 function initializeGame() {
-
 // Game state
-function initializeGame() {
 let gameState = {
     players: [],
     holes: {},
