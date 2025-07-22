@@ -895,6 +895,7 @@ document.addEventListener('DOMContentLoaded', initializeGame);
 
 // Temporary fix function for Linc/Boe birdie mix-up
 window.fixBirdieError = function() {
+    try {
     // Find player IDs
     const linc = gameState.players.find(p => p.name.toLowerCase().includes('linc'));
     const boe = gameState.players.find(p => p.name.toLowerCase().includes('boe'));
