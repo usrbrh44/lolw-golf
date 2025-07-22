@@ -51,7 +51,7 @@ let currentView = 'rules';
 let currentStatsView = 'territories';
 let isOnline = navigator.onLine;
 let syncInterval;
-let gameDocRef = doc(db, 'games', 'lords-of-lake-windsor-main');
+let gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
 let pauseSync = false;
 
 const PLAYER_COLORS = [
@@ -70,7 +70,7 @@ async function initializeGame() {
     updateSyncStatus('🔄 Connecting...');
     
     try {
-        onSnapshot(gameDocRef, (doc) => {
+        gameDocRef.onSnapshot((doc) => {
             if (pauseSync) return;
             
             if (doc.exists()) {
