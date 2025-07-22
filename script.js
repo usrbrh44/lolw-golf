@@ -42,15 +42,20 @@ function initializeFirebaseApp() {
 }
 
 function initializeGame(db) {
-// Game state
-let gameState = {
-    players: [],
-    holes: {},
-    originalOwners: {},
-    activity: [],
-    playerBirdies: {},
-    stats: {}
-};
+    try {
+        console.log("initializeGame function started with db:", db);
+        
+        // Game state
+        let gameState = {
+            players: [],
+            holes: {},
+            originalOwners: {},
+            activity: [],
+            playerBirdies: {},
+            stats: {}
+        };
+        
+        console.log("About to create gameDocRef...");
 
 let currentView = 'rules';
 let currentStatsView = 'territories';
@@ -69,52 +74,6 @@ const HOLE_ADJACENCIES = {
     7: [6, 8], 8: [7, 9], 9: [8, 10], 10: [9, 11], 11: [10, 12], 12: [11, 13],
     13: [12, 14], 14: [13, 15], 15: [14, 16], 16: [15, 17], 17: [16, 18], 18: [17, 1]
 };
-
-// Initialize game
-async function initializeGame() {
-    updateSyncStatus('🔄 Connecting...');
-    
-    try {
-        gameDocRef.onSnapshot((doc) => {
-            if (pauseSync) return;
-            
-            if (doc.exists()) {
-                const data = doc.data();
-                gameState = { ...gameState, ...data };
-                updateUI();
-                updateSyncStatus('✅ Synced', 'online');
-            } else {
-                createInitialGameState();
-            }
-        }, (error) => {
-            console.log('Offline mode:', error);
-            updateSyncStatus('📱 Offline', 'offline');
-            loadLocalGameState();
-        });
-
-        syncInterval = setInterval(() => {
-            if (!pauseSync) syncToFirebase();
-        }, 30000);
-        
-    } catch (error) {
-        console.log('Starting in offline mode');
-        updateSyncStatus('📱 Offline', 'offline');
-        loadLocalGameState();
-    }
-
-    window.addEventListener('online', () => {
-        isOnline = true;
-        if (!pauseSync) {
-            updateSyncStatus('🔄 Reconnecting...');
-            syncToFirebase();
-        }
-    });
-
-    window.addEventListener('offline', () => {
-        isOnline = false;
-        updateSyncStatus('📱 Offline', 'offline');
-    });
-}
 
 function createInitialGameState() {
     gameState = {
