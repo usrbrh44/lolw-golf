@@ -1,23 +1,48 @@
 console.log("Script starting to load...");
 // Import Firebase
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, doc, onSnapshot, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getFirestore, doc, onSnapshot, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';console.log("Script starting to load...");
+
+// Wait for Firebase to be available, then initialize
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM loaded, checking Firebase...");
+    
+    // Check if Firebase is available
+    if (typeof firebase === 'undefined') {
+        console.error("Firebase not loaded!");
+        return;
+    }
+    
+    console.log("Firebase available, initializing app...");
+    initializeFirebaseApp();
+});
+
+function initializeFirebaseApp() {
 
 // Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAdqOQ7lnQ4bFNvu3PYcWaI0woCtmDtcBc",
-  authDomain: "lords-of-lake-windsor-cc.firebaseapp.com",
-  projectId: "lords-of-lake-windsor-cc",
-  storageBucket: "lords-of-lake-windsor-cc.firebasestorage.app",
-  messagingSenderId: "706904911353",
-  appId: "1:706904911353:web:1f0309b8a3228b07e5e128"
-};
+ const firebaseConfig = {
+        apiKey: "AIzaSyAdqOQ7lnQ4bFNvu3PYcWaI0woCtmDtcBc",
+        authDomain: "lords-of-lake-windsor-cc.firebaseapp.com",
+        projectId: "lords-of-lake-windsor-cc",
+        storageBucket: "lords-of-lake-windsor-cc.firebasestorage.app",
+        messagingSenderId: "706904911353",
+        appId: "1:706904911353:web:1f0309b8a3228b07e5e128"
+    };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    // Initialize Firebase using the global firebase object
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    
+    console.log("Firebase initialized successfully!");
+    
+    // Now start the game initialization
+    initializeGame();
+}
+
+function initializeGame() {
 
 // Game state
+function initializeGame() {
 let gameState = {
     players: [],
     holes: {},
@@ -988,4 +1013,4 @@ async function fixHole18Ownership() {
 }
 // Make function available globally
 window.fixHole18Ownership = fixHole18Ownership;
-
+}
