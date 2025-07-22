@@ -971,3 +971,4 @@ window.fixBirdieError = function() {
     
     alert('Fixed! Hole 18 transferred back to Linc.');
 };
+}
