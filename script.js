@@ -890,9 +890,6 @@ window.downloadStats = downloadStats;
 window.revertAction = revertAction;
 window.closeModal = closeModal;
 
-// Initialize
-document.addEventListener('DOMContentLoaded', initializeGame);
-
 // Temporary fix function for Linc/Boe birdie mix-up
 window.fixBirdieError = function() {
     try {
