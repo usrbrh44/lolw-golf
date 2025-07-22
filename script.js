@@ -33,7 +33,8 @@ function initializeFirebaseApp() {
     console.log("Firebase initialized successfully!");
     
     // Now start the game initialization
-   initializeGame(db);
+   console.log("About to call initializeGame with db:", db);
+initializeGame(db);
 }
 
 function initializeGame(db) {
