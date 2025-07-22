@@ -931,5 +931,7 @@ window.fixBirdieError = function() {
     updateUI();
     
     alert('Fixed! Hole 18 transferred back to Linc.');
+ } catch (error) {
+        console.error("Error in admin fix function:", error);
+    }
 };
-}
