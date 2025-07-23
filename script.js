@@ -53,7 +53,6 @@ let gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
 console.log("gameDocRef created:", gameDocRef);
 console.log("About to call gameDocRef.get()...");
         
-let currentView = 'rules';
 let currentStatsView = 'territories';
 let isOnline = navigator.onLine;
 let syncInterval;
