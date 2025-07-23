@@ -65,7 +65,6 @@ let currentView = 'rules';
 let currentStatsView = 'territories';
 let isOnline = navigator.onLine;
 let syncInterval;
-let gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
 let pauseSync = false;
 
 const PLAYER_COLORS = [
