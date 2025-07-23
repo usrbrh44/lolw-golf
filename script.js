@@ -46,16 +46,6 @@ function initializeGame(db) {
     try {
         console.log("initializeGame function started with db:", db);
         
-        // Game state
-        let gameState = {
-            players: [],
-            holes: {},
-            originalOwners: {},
-            activity: [],
-            playerBirdies: {},
-            stats: {}
-        };
-        
         console.log("About to create gameDocRef...");
 console.log("Creating gameDocRef...");
 let gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
