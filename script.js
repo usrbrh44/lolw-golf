@@ -465,6 +465,9 @@ function updateUI() {
 }
 
 function getHoleOwner(holeNum) {
+    if (!gameState || !gameState.holes || !gameState.players) {
+        return null;
+    }
     const ownerId = gameState.holes[holeNum];
     return gameState.players.find(p => p.id === ownerId);
 }
