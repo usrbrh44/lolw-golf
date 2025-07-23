@@ -1,5 +1,6 @@
 console.log("Script starting to load...");
 let gameState = null;
+let currentView = 'map';
 
 // Wait for Firebase to be available, then initialize
 document.addEventListener('DOMContentLoaded', function() {
