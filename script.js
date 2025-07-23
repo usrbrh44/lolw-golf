@@ -35,6 +35,34 @@ appId: "1:706904911353:web:1f0309b8a3228b07e5e128"
         const db = firebase.firestore();
         
         console.log("Firebase initialized successfully!");
+        // Automatic backup system - prevents data loss
+        function createAutomaticBackup() {
+            const gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
+            
+            gameDocRef.get().then((doc) => {
+                if (doc.exists) {
+                    const backup = {
+                        timestamp: new Date().toISOString(),
+                        data: doc.data(),
+                        version: 'auto-backup'
+                    };
+                    
+                    // Store backup in Firebase with date
+                    const backupDate = new Date().toISOString().split('T')[0];
+                    db.collection('backups').doc(`backup-${backupDate}`).set(backup);
+                    
+                    console.log(`✅ Automatic backup created: backup-${backupDate}`);
+                }
+            }).catch(error => {
+                console.error('❌ Backup failed:', error);
+            });
+        }
+        
+        // Run backup daily (24 hours = 86400000 milliseconds)
+        setInterval(createAutomaticBackup, 24 * 60 * 60 * 1000);
+        
+        // Create initial backup on app load
+        createAutomaticBackup();
         console.log("About to call initializeGame with db:", db);
         initializeGame(db);
         
