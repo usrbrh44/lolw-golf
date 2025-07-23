@@ -18,12 +18,12 @@ function initializeFirebaseApp() {
     try {
         console.log("Starting Firebase app initialization...");
         const firebaseConfig = {
-            apiKey: "AIzaSyBtZ8rJKlCN5x4P2QqJ2V9xXGr7RQhKvME",
-            authDomain: "lolw-golf.firebaseapp.com",
-            projectId: "lolw-golf",
-            storageBucket: "lolw-golf.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef123456789"
+            apiKey: "AIzaSyAdqOQ7lnQ4bFNvu3PYcWaI0woCtmDtcBc",
+authDomain: "lords-of-lake-windsor-cc.firebaseapp.com",
+projectId: "lords-of-lake-windsor-cc",
+storageBucket: "lords-of-lake-windsor-cc.firebasestorage.app",
+messagingSenderId: "706904911353",
+appId: "1:706904911353:web:1f0309b8a3228b07e5e128"
         };
         
         console.log("Calling firebase.initializeApp...");
