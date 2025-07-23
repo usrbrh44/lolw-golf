@@ -85,7 +85,7 @@ gameDocRef.get().then((doc) => {
         console.log("Document data:", doc.data());
         // TODO: Process the data and set up the game
         gameState = doc.data();
-        updateUI();
+        updateUI(gameState);
     } else {
         console.log("No document found, creating initial game state");
         // TODO: Create initial game state
