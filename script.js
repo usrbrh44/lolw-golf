@@ -77,6 +77,22 @@ const HOLE_ADJACENCIES = {
     7: [6, 8], 8: [7, 9], 9: [8, 10], 10: [9, 11], 11: [10, 12], 12: [11, 13],
     13: [12, 14], 14: [13, 15], 15: [14, 16], 16: [15, 17], 17: [16, 18], 18: [17, 1]
 };
+
+// Load game data from Firebase
+gameDocRef.get().then((doc) => {
+    console.log("Firebase query completed, doc exists:", doc.exists);
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        // TODO: Process the data and set up the game
+        gameState = doc.data();
+        updateUI();
+    } else {
+        console.log("No document found, creating initial game state");
+        // TODO: Create initial game state
+    }
+}).catch((error) => {
+    console.error("Error loading game data:", error);
+});
  } catch (error) {
         console.error("Error in initializeGame:", error);
     }
