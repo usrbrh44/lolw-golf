@@ -116,6 +116,84 @@ gameDocRef.get().then((doc) => {
     }
 }
 
+function logRound() {
+    const playerSelect = document.getElementById('roundPlayer');
+    if (!playerSelect) return;
+    
+    const playerId = playerSelect.value;
+    const player = gameState.players.find(p => p.id == playerId);
+    
+    if (!player) {
+        alert('Please select a player');
+        return;
+    }
+
+    const birdieHoles = [];
+    for (let i = 1; i <= 18; i++) {
+        const checkbox = document.getElementById(`hole${i}`);
+        if (checkbox && checkbox.checked) {
+            birdieHoles.push(i);
+        }
+    }
+
+    if (birdieHoles.length === 0) {
+        alert('Please select at least one hole where you made birdie');
+        return;
+    }
+
+    player.rounds++;
+    
+    birdieHoles.forEach(hole => {
+        if (!gameState.playerBirdies[player.id].includes(hole)) {
+            gameState.playerBirdies[player.id].push(hole);
+        }
+    });
+    
+    birdieHoles.forEach(hole => {
+        const currentOwner = getHoleOwner(hole);
+        const adjacentHoles = HOLE_ADJACENCIES[hole];
+        const playerOwnsAdjacent = adjacentHoles.some(adjHole => 
+            player.holes.includes(adjHole)
+        );
+        const holeIsUnoccupied = !currentOwner;
+        const playerOwnsHole = currentOwner && currentOwner.id === player.id;
+
+        if (playerOwnsAdjacent || holeIsUnoccupied || playerOwnsHole) {
+            if (currentOwner && currentOwner.id !== player.id) {
+                currentOwner.holes = currentOwner.holes.filter(h => h !== hole);
+                currentOwner.losses++;
+                player.holes.push(hole);
+                player.conquests++;
+                gameState.holes[hole] = player.id;
+                
+                logActivity(`${player.name} conquered hole ${hole} from ${currentOwner.name} with a birdie!`);
+            } else if (holeIsUnoccupied) {
+                player.holes.push(hole);
+                player.conquests++;
+                gameState.holes[hole] = player.id;
+                
+                logActivity(`${player.name} claimed unoccupied hole ${hole} with a birdie!`);
+            } else {
+                logActivity(`${player.name} defended hole ${hole} with a birdie`);
+            }
+        }
+    });
+
+    logActivity(`${player.name} completed a round with birdies on holes: ${birdieHoles.join(', ')}`);
+    
+    birdieHoles.forEach(hole => {
+        const checkbox = document.getElementById(`hole${hole}`);
+        if (checkbox) checkbox.checked = false;
+    });
+    
+    closeModal('logRoundModal');
+    syncToFirebase();
+    updateUI();
+    
+    if (player.holes.length === 18) {
+        alert(`🎉 ${player.name} has conquered all 18 holes and won the game! 🎉`);
+    }
+}
 function createInitialGameState() {
     gameState = {
         players: [],
@@ -690,84 +768,7 @@ function showLogRoundModal() {
     if (modal) modal.style.display = 'block';
 }
 
-function logRound() {
-    const playerSelect = document.getElementById('roundPlayer');
-    if (!playerSelect) return;
-    
-    const playerId = playerSelect.value;
-    const player = gameState.players.find(p => p.id == playerId);
-    
-    if (!player) {
-        alert('Please select a player');
-        return;
-    }
 
-    const birdieHoles = [];
-    for (let i = 1; i <= 18; i++) {
-        const checkbox = document.getElementById(`hole${i}`);
-        if (checkbox && checkbox.checked) {
-            birdieHoles.push(i);
-        }
-    }
-
-    if (birdieHoles.length === 0) {
-        alert('Please select at least one hole where you made birdie');
-        return;
-    }
-
-    player.rounds++;
-    
-    birdieHoles.forEach(hole => {
-        if (!gameState.playerBirdies[player.id].includes(hole)) {
-            gameState.playerBirdies[player.id].push(hole);
-        }
-    });
-    
-    birdieHoles.forEach(hole => {
-        const currentOwner = getHoleOwner(hole);
-        const adjacentHoles = HOLE_ADJACENCIES[hole];
-        const playerOwnsAdjacent = adjacentHoles.some(adjHole => 
-            player.holes.includes(adjHole)
-        );
-        const holeIsUnoccupied = !currentOwner;
-        const playerOwnsHole = currentOwner && currentOwner.id === player.id;
-
-        if (playerOwnsAdjacent || holeIsUnoccupied || playerOwnsHole) {
-            if (currentOwner && currentOwner.id !== player.id) {
-                currentOwner.holes = currentOwner.holes.filter(h => h !== hole);
-                currentOwner.losses++;
-                player.holes.push(hole);
-                player.conquests++;
-                gameState.holes[hole] = player.id;
-                
-                logActivity(`${player.name} conquered hole ${hole} from ${currentOwner.name} with a birdie!`);
-            } else if (holeIsUnoccupied) {
-                player.holes.push(hole);
-                player.conquests++;
-                gameState.holes[hole] = player.id;
-                
-                logActivity(`${player.name} claimed unoccupied hole ${hole} with a birdie!`);
-            } else {
-                logActivity(`${player.name} defended hole ${hole} with a birdie`);
-            }
-        }
-    });
-
-    logActivity(`${player.name} completed a round with birdies on holes: ${birdieHoles.join(', ')}`);
-    
-    birdieHoles.forEach(hole => {
-        const checkbox = document.getElementById(`hole${hole}`);
-        if (checkbox) checkbox.checked = false;
-    });
-    
-    closeModal('logRoundModal');
-    syncToFirebase();
-    updateUI();
-    
-    if (player.holes.length === 18) {
-        alert(`🎉 ${player.name} has conquered all 18 holes and won the game! 🎉`);
-    }
-}
 
 function showGameSettings() {
     const modal = document.getElementById('gameSettingsModal');
