@@ -151,6 +151,7 @@ function logRound() {
     
     birdieHoles.forEach(hole => {
         const currentOwner = getHoleOwner(hole);
+        console.log("HOLE_ADJACENCIES:", HOLE_ADJACENCIES);
         const adjacentHoles = HOLE_ADJACENCIES[hole];
         const playerOwnsAdjacent = adjacentHoles.some(adjHole => 
             player.holes.includes(adjHole)
