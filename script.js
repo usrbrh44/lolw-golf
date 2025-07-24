@@ -71,6 +71,11 @@ appId: "1:706904911353:web:1f0309b8a3228b07e5e128"
     }
 }
 
+let currentStatsView = 'territories';
+let isOnline = navigator.onLine;
+let syncInterval;
+let pauseSync = false;
+
 const HOLE_ADJACENCIES = {
     1: [2, 18], 2: [1, 3], 3: [2, 4], 4: [3, 5], 5: [4, 6], 6: [5, 7],
     7: [6, 8], 8: [7, 9], 9: [8, 10], 10: [9, 11], 11: [10, 12], 12: [11, 13],
@@ -88,11 +93,6 @@ let gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
 console.log("gameDocRef created:", gameDocRef);
 console.log("About to call gameDocRef.get()...");
         
-let currentStatsView = 'territories';
-let isOnline = navigator.onLine;
-let syncInterval;
-let pauseSync = false;
-
 console.log("Global HOLE_ADJACENCIES test:", typeof HOLE_ADJACENCIES);
 
 const PLAYER_COLORS = [
