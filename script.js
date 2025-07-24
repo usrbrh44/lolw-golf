@@ -91,12 +91,6 @@ const PLAYER_COLORS = [
     '#9900CC', '#FFD700', '#FF1493', '#00CCCC'
 ];
 
-const HOLE_ADJACENCIES = {
-    1: [2, 18], 2: [1, 3], 3: [2, 4], 4: [3, 5], 5: [4, 6], 6: [5, 7],
-    7: [6, 8], 8: [7, 9], 9: [8, 10], 10: [9, 11], 11: [10, 12], 12: [11, 13],
-    13: [12, 14], 14: [13, 15], 15: [14, 16], 16: [15, 17], 17: [16, 18], 18: [17, 1]
-};
-
 // Load game data from Firebase
 gameDocRef.get().then((doc) => {
     console.log("Firebase query completed, doc exists:", doc.exists);
