@@ -90,6 +90,7 @@ const HOLE_ADJACENCIES = {
     7: [6, 8], 8: [7, 9], 9: [8, 10], 10: [9, 11], 11: [10, 12], 12: [11, 13],
     13: [12, 14], 14: [13, 15], 15: [14, 16], 16: [15, 17], 17: [16, 18], 18: [17, 1]
 };
+console.log("Global HOLE_ADJACENCIES test:", typeof HOLE_ADJACENCIES);
 
 const PLAYER_COLORS = [
     '#FF0000', '#0066FF', '#00CC00', '#FF6600',
