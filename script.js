@@ -82,6 +82,26 @@ const HOLE_ADJACENCIES = {
     13: [12, 14], 14: [13, 15], 15: [14, 16], 16: [15, 17], 17: [16, 18], 18: [17, 1]
 };
 
+const ORIGINAL_HOLE_OWNERS = {
+    1: 'Boe',
+    2: 'Brad', 
+    3: 'Linc',
+    4: 'Cody',
+    5: 'Brad',
+    6: 'Brad',
+    7: 'Linc',
+    8: 'Cody',
+    9: 'Boe',
+    10: 'Linc',
+    11: null,
+    12: 'Boe',
+    13: 'Boe',
+    14: 'Brad',
+    15: 'Cody',
+    16: null,
+    17: 'Cody',
+    18: 'Linc'
+};
 
 function initializeGame(db) {
     try {
@@ -160,10 +180,11 @@ function logRound() {
         const playerOwnsAdjacent = adjacentHoles.some(adjHole => 
             player.holes.includes(adjHole)
         );
+        const isOriginalOwner = ORIGINAL_HOLE_OWNERS[hole] === player.name;
         const holeIsUnoccupied = !currentOwner;
         const playerOwnsHole = currentOwner && currentOwner.id === player.id;
 
-        if (playerOwnsAdjacent || holeIsUnoccupied || playerOwnsHole) {
+        if (playerOwnsAdjacent || holeIsUnoccupied || playerOwnsHole || isOriginalOwner) {
             if (currentOwner && currentOwner.id !== player.id) {
                 currentOwner.holes = currentOwner.holes.filter(h => h !== hole);
                 currentOwner.losses++;
@@ -171,7 +192,11 @@ function logRound() {
                 player.conquests++;
                 gameState.holes[hole] = player.id;
                 
-                logActivity(`${player.name} conquered hole ${hole} from ${currentOwner.name} with a birdie!`);
+                if (isOriginalOwner) {
+                    logActivity(`${player.name} reclaimed their original hole ${hole} from ${currentOwner.name} with a birdie!`);
+                } else {
+                    logActivity(`${player.name} conquered hole ${hole} from ${currentOwner.name} with a birdie!`);
+                }
             } else if (holeIsUnoccupied) {
                 player.holes.push(hole);
                 player.conquests++;
