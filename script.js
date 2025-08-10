@@ -264,7 +264,7 @@ async function syncToFirebase() {
 
     try {
         gameState.lastUpdated = Date.now();
-        await setDoc(gameDocRef, gameState);
+        await gameDocRef.set(gameState);
         updateSyncStatus('✅ Synced', 'online');
         saveLocalGameState();
     } catch (error) {
