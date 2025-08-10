@@ -1,6 +1,7 @@
 console.log("Script starting to load...");
 let gameState = null;
 let currentView = 'map';
+let gameDocRef = null;
 
 // Wait for Firebase to be available, then initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -109,7 +110,7 @@ function initializeGame(db) {
         
         console.log("About to create gameDocRef...");
 console.log("Creating gameDocRef...");
-let gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
+gameDocRef = db.collection('games').doc('lords-of-lake-windsor-main');
 console.log("gameDocRef created:", gameDocRef);
 console.log("About to call gameDocRef.get()...");
         
