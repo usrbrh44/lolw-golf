@@ -268,6 +268,7 @@ async function syncToFirebase() {
         updateSyncStatus('✅ Synced', 'online');
         saveLocalGameState();
     } catch (error) {
+        console.error('Sync failed with error:', error);
         console.log('Sync failed, saving locally');
         updateSyncStatus('📱 Offline', 'offline');
         saveLocalGameState();
